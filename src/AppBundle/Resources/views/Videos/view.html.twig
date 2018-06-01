@@ -1,0 +1,141 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="col-sm-6">
+            {% if article.enabled == true %}
+                <a href="{{path("app_videos_notif",{id:article.id})}}"  title="" style="">
+                    <h2 style="background: #03a9f4;margin: 0px;color: white;height: 77px;line-height: 50px;margin-bottom: 10px;padding: 16px;font-size: 30pt;width: 100%;"  class="btn" > <i class="zmdi zmdi-notifications-active"></i> Send notification</h2>
+                </a>
+            {% else %}
+                <a href="{{path("app_videos_edit",{id:article.id})}}"  title="" style="">
+                    <h2 style="background: #03a9f4;margin: 0px;color: white;height: 77px;line-height: 50px;margin-bottom: 10px;padding: 16px;font-size: 20pt;width: 100%;"  class="btn" > <i class="zmdi zmdi-notifications-off"></i> Enable to send notification</h2>
+                </a>
+            {% endif %}
+            <div class="card">
+
+                <div class="status-bar"></div>
+                <div class="action-bar">
+                    <a href="{{path("app_videos_index")}}" class="zmdi zmdi-arrow-left"></a>
+                    <p>{{article.title|striptags|truncate(40, true)}}</p>
+                </div>
+                <ul class="actions a-alt" style="right: 4px;top: 34px;position: absolute;">
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown">
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="{{path("app_videos_delete",{"id":article.id})}}">Delete</a>
+                            </li>
+                            <li>
+                                <a href="{{path("app_videos_edit",{"id":article.id})}}">Edit</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" id="video-view" src="https://www.youtube.com/embed/{{article.video}}"></iframe>
+                </div>
+                <div class="class-28">
+                    <h3>
+                    {{article.title}}
+                    </h3>
+                    {{article.content|raw}}
+                </div>
+                <div class="class-28">
+                    <ul class="lgi-attrs">
+                        <li>Date Created:{{article.created|ago}}</li>
+                        <li>
+                            Published:
+                            {% if article.enabled == true %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="status-bar"></div>
+                <div class="action-bar">
+                    <a href="#" class="zmdi zmdi-comment-alt"></a>
+                    <p>Comments</p>
+                </div>
+                <div class="list-group lg-alt lg-even-black">
+                    {% set k= 0 %}
+                    {% for comment in pagination %}
+                        <div class="list-group-item media">
+                            <div class="pull-left">
+                                {% if k==0 %}
+                                    <div class="avatar-char palette-Light-Blue bg">{{comment.user.name|first|lower}}</div>
+                                {% elseif k==1 %}
+                                    <div class="avatar-char palette-Purple-300 bg">{{comment.user.name|first|lower}}</div>
+                                {% elseif k==2 %}
+                                    <div class="avatar-char palette-Green-400 bg">{{comment.user.name|first|lower}}</div>
+                                {% elseif k==3 %}
+                                    <div class="avatar-char palette-Red-400 bg">{{comment.user.name|first|lower}}</div>
+                                {% endif %}
+                                
+                            </div>
+                            <div class="pull-right">
+                                <ul class="actions">
+                                    <li class="dropdown">
+                                        <a href="" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a href="{{path("app_comments_delete",{"id":comment.id})}}">Delete</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{path("app_comments_hide",{"id":comment.id})}}">
+                                                    {% if comment.enabled == true %}
+                                                        Hide
+                                                    {% else %}
+                                                        Show
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading"> <a href="{{path("user_user_edit",{"id":comment.user.id})}}" title="">{{comment.user.name}}</a> </div>
+                                <small class="lgi-text">{{comment.content}}</small>
+                                <ul class="lgi-attrs">
+                                    <li>Date Created:{{comment.created|date("d/m/Y")}} at {{comment.created|date("H:i")}}</li>
+                                    <li>
+                                        Published:
+                                        {% if comment.enabled == true %}
+                                            Yes
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% if k==3 %}
+                            {% set k=0 %}
+                        {% else %}
+                            {% set k=k+1 %}
+                        {% endif %}
+                    {% else %}
+                        <p style="text-align:center">
+                            <img style="padding:50px; width:100%" src="{{asset("img/bg_empty.png")}}" alt="">
+                        </p>
+                    {% endfor %}
+                    <div class=" pull-right">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

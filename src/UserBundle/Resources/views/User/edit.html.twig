@@ -1,0 +1,129 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block body%}
+
+
+<div class="container">
+    <div class="card col-sm-6">
+        <div class="card-header">
+            <h2>EDIT : {{ form.vars.value.name}}<small>
+            </small></h2>
+        </div>
+        <div class="card-body card-padding">
+			{{ form_start(form,{attr:{"class":"form-horizontal"}}) }}                    
+				<div class="form-group fg-line">
+					{{form_label(form.name,null,{label_attr:{"class":""}})}}
+	                {{form_widget(form.name,{attr:{"class":"form-control"}})}}
+	                {{form_errors(form.name)}}
+                </div>
+               	<div class="form-group fg-line">
+					{{form_label(form.email,null,{label_attr:{"class":""}})}}
+	                {{form_widget(form.email,{attr:{"class":"form-control"}})}}
+	                {{form_errors(form.email)}}
+                </div>
+                <div class="form-group fg-line">
+					{{form_label(form.type,null,{label_attr:{"class":""}})}}
+	                {{form_widget(form.type,{attr:{"class":"form-control"}})}}
+	                {{form_errors(form.type)}}
+                </div>
+                <div class="checkbox">
+                        <label>
+                        	{{form_widget(form.enabled)}}
+                            <i class="input-helper"></i>
+                            Enabled
+                        </label>
+                    </div>
+               	<br>
+ 				{{form_widget(form.save,{attr:{"class":"btn btn-success btn-lg waves-effect pull-right"}})}} 
+            {{ form_end(form) }}
+            <br>
+            <br>
+        </div>
+    </div>
+    <div class="col-sm-6">
+            <div class="card">
+                <div class="status-bar"></div>
+                <div class="action-bar">
+                    <a href="#" class="zmdi zmdi-comment-alt"></a>
+                    <p>Comments</p>
+                </div>
+                <div class="list-group lg-alt lg-even-black">
+                    {% set k= 0 %}
+                    {% for comment in pagination %}
+                        <div class="list-group-item media">
+                            <div class="pull-left">
+                                {% if k==0 %}
+                                    <div class="avatar-char palette-Light-Blue bg">{{comment.user.name|first|lower}}</div>
+                                {% elseif k==1 %}
+                                    <div class="avatar-char palette-Purple-300 bg">{{comment.user.name|first|lower}}</div>
+                                {% elseif k==2 %}
+                                    <div class="avatar-char palette-Green-400 bg">{{comment.user.name|first|lower}}</div>
+                                {% elseif k==3 %}
+                                    <div class="avatar-char palette-Red-400 bg">{{comment.user.name|first|lower}}</div>
+                                {% endif %}
+                                
+                            </div>
+                            <div class="pull-right">
+                                <ul class="actions">
+                                    <li class="dropdown">
+                                        <a href="" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a href="{{path("app_comments_delete",{"id":comment.id,"from":"user"})}}">Delete</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{path("app_comments_hide",{"id":comment.id,"from":"user"})}}">
+                                                    {% if comment.enabled == true %}
+                                                        Hide
+                                                    {% else %}
+                                                        Show
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="media-body">
+                                <div class="lgi-heading"> 
+                                	{% if comment.article.video=="" %}
+                                	  <a href="{{path("app_articles_view",{"id":comment.article.id})}}" title="">{{comment.article.title}}</a> 
+                                	{% else %}
+                                	  <a href="{{path("app_videos_view",{"id":comment.article.id})}}" title="">{{comment.article.title}}</a> 
+                                	{% endif %}
+                                </div>
+                                <small class="lgi-text">{{comment.content}}</small>
+                                <ul class="lgi-attrs">
+                                    <li>Date Created:{{comment.created|date("d/m/Y")}} at {{comment.created|date("H:i")}}</li>
+                                    <li>
+                                        Published:
+                                        {% if comment.enabled == true %}
+                                            Yes
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% if k==3 %}
+                            {% set k=0 %}
+                        {% else %}
+                            {% set k=k+1 %}
+                        {% endif %}
+                    {% else %}
+                        <p style="text-align:center">
+                            <img style="padding:50px; width:100%" src="{{asset("img/bg_empty.png")}}" alt="">
+                        </p>
+                    {% endfor %}
+                    <div class=" pull-right">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock%}

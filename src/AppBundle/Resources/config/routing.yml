@@ -1,0 +1,184 @@
+app_home_index:
+    path:     /
+    defaults: { _controller: AppBundle:Home:index }
+api_home_api_device:
+    path:   /api/device/{tkn}/{token}/
+    defaults: { _controller: AppBundle:Home:api_device }
+
+app_categories_index:
+    path:     /categories/index.html
+    defaults: { _controller: AppBundle:Categories:index }
+app_categories_add:
+    path:     /categories/add.html
+    defaults: { _controller: AppBundle:Categories:add }
+app_categories_delete:
+    path:     /categories/delete/{id}.html
+    defaults: { _controller: AppBundle:Categories:delete }
+    requirements:
+        id:  \d+
+app_categories_up:
+    path:     /categories/up/{id}.html
+    defaults: { _controller: AppBundle:Categories:up }
+    requirements:
+        id:  \d+
+app_categories_down:
+    path:     /categories/down/{id}.html
+    defaults: { _controller: AppBundle:Categories:down }
+    requirements:
+        id:  \d+
+app_categories_edit:
+    path:     /categories/edit/{id}.html
+    defaults: { _controller: AppBundle:Categories:edit }
+    requirements:
+        id:  \d+
+
+api_categories_list:
+  path: /api/categories/list/{token}/
+  defaults: { _controller: AppBundle:Categories:api_list}
+
+app_articles_add:
+    path:     /articles/add.html
+    defaults: { _controller: AppBundle:Articles:add }
+app_articles_index:
+    path:     /articles/index.html
+    defaults: { _controller: AppBundle:Articles:index }
+app_articles_view:
+    path:     /articles/view/{id}.html
+    defaults: { _controller: AppBundle:Articles:view }
+    requirements:
+        id:  \d+
+app_articles_notif:
+    path:     /articles/notif/{id}.html
+    defaults: { _controller: AppBundle:Articles:notif }
+    requirements:
+        id:  \d+
+app_articles_edit:
+    path:     /articles/edit/{id}.html
+    defaults: { _controller: AppBundle:Articles:edit }
+    requirements:
+        id:  \d+
+app_articles_delete:
+    path:     /articles/delete/{id}.html
+    defaults: { _controller: AppBundle:Articles:delete }
+    requirements:
+        id:  \d+
+api_articles_all:
+  path: /api/articles/all/{token}/
+  defaults: { _controller: AppBundle:Articles:api_all}
+api_articles_get:
+  path: /api/articles/get/{id}/{token}/
+  defaults: { _controller: AppBundle:Articles:api_get}
+  requirements:
+    id:  \d+
+api_articles_next:
+  path: /api/articles/next/{id}/{token}/
+  defaults: { _controller: AppBundle:Articles:api_next}
+  requirements:
+    id:  \d+
+api_articles_by_category:
+  path: /api/articles/by/{category}/{token}/
+  defaults: { _controller: AppBundle:Articles:api_by_category}
+  requirements:
+    category:  \d+
+api_articles_by_query:
+  path: /api/articles/search/{query}/{token}/
+  defaults: { _controller: AppBundle:Articles:api_by_query}
+  requirements:
+    category:  \d+
+
+api_articles_by_category_next:
+  path: /api/articles/next/{category}/{id}/{token}/
+  defaults: { _controller: AppBundle:Articles:api_by_category_next}
+  requirements:
+    category:  \d+
+    id:  \d+
+
+
+
+
+app_videos_notif:
+    path:     /videos/notif/{id}.html
+    defaults: { _controller: AppBundle:Videos:notif }
+    requirements:
+        id:  \d+
+app_videos_add:
+    path:     /videos/add.html
+    defaults: { _controller: AppBundle:Videos:add }
+app_videos_index:
+    path:     /videos/index.html
+    defaults: { _controller: AppBundle:Videos:index }
+app_videos_view:
+    path:     /videos/view/{id}.html
+    defaults: { _controller: AppBundle:Videos:view }
+    requirements:
+        id:  \d+
+app_videos_edit:
+    path:     /videos/edit/{id}.html
+    defaults: { _controller: AppBundle:Videos:edit }
+    requirements:
+        id:  \d+
+app_videos_delete:
+    path:     /videos/delete/{id}.html
+    defaults: { _controller: AppBundle:Videos:delete }
+    requirements:
+        id:  \d+
+
+app_comments_delete:
+    path:     /comments/delete/{id}.html
+    defaults: { _controller: AppBundle:Comments:delete }
+    requirements:
+        id:  \d+
+app_comments_delete_two:
+    path:     /comments/delete_two/{id}.html
+    defaults: { _controller: AppBundle:Comments:delete_two }
+    requirements:
+        id:  \d+
+app_comments_hide:
+    path:     /comments/hide/{id}.html
+    defaults: { _controller: AppBundle:Comments:hide }
+    requirements:
+        id:  \d+
+app_comments_hide_two:
+    path:     /comments/hide_two/{id}.html
+    defaults: { _controller: AppBundle:Comments:hide_two }
+    requirements:
+        id:  \d+
+app_comments_index:
+    path:     /comments/index.html
+    defaults: { _controller: AppBundle:Comments:index }
+api_comments_add:
+    path:     /api/comments/add/{user}/{article}/{comment}/{token}/
+    defaults: { _controller: AppBundle:Comments:api_add }
+api_comments_by:
+    path:     /api/comments/by/{article}/{token}/
+    defaults: { _controller: AppBundle:Comments:api_by }
+
+app_support_index:
+    path:     /support/index.html
+    defaults: { _controller: AppBundle:Support:index }
+app_support_view:
+    path:     /support/view/{id}.html
+    defaults: { _controller: AppBundle:Support:view }
+app_support_delete:
+    path:     /support/delete/{id}.html
+    defaults: { _controller: AppBundle:Support:delete }
+api_support_add:
+    path:     /api/support/add/{email}/{subject}/{message}/{token}/
+    defaults: { _controller: AppBundle:Support:api_add }
+app_poll_add:
+    path:     /poll/add.html
+    defaults: { _controller: AppBundle:Poll:add }
+app_poll_edit:
+  path:     /poll/edit/{id}.html
+  defaults: { _controller: AppBundle:Poll:edit }
+  requirements:
+    id:  \d+
+app_poll_index:
+    path:     /poll/index.html
+    defaults: { _controller: AppBundle:Poll:index }
+api_poll_list:
+  path: /api/poll/list/{token}/
+  defaults: { _controller: AppBundle:Poll:api_poll}
+app_poll_delete:
+    path:     /poll/delete/{id}.html
+    defaults: { _controller: AppBundle:Poll:delete }     

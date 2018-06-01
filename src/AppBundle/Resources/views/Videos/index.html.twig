@@ -1,0 +1,129 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block body %}
+<div class="container">
+    <div class="card">
+        <div class="action-header palette-Teal-400 bg clearfix">
+            <div class="ah-label hidden-xs palette-White text">Search for articles by title</div>
+
+            <div class="ah-search">
+                <form action="#" method="get" accept-charset="utf-8">
+ 
+                
+                <input type="text" name="title" value="{{app.request.get('title')}}" placeholder="Search for articles by title" class="ahs-input">
+                <i class="ah-search-close zmdi zmdi-long-arrow-left" data-ma-action="ah-search-close"></i>
+                <button type="submit" class="class-27">Search</button>
+                </form>
+            </div>
+
+            <ul class="ah-actions actions a-alt">
+                <li>
+                    <a href="" class="ah-search-trigger" data-ma-action="ah-search-open">
+                        <i class="zmdi zmdi-search"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{path("app_videos_add")}}">
+                        <i class="zmdi  zmdi-file-plus"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown" aria-expanded="true">
+                        <i class="zmdi zmdi-sort"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            {{ knp_pagination_sortable(articles, 'Sort by title', 'a.title') }}
+                        </li>
+                        <li>
+                            {{ knp_pagination_sortable(articles, 'Sort by created date ', 'a.created') }}
+                        </li>
+                        <li>
+                            {{ knp_pagination_sortable(articles, 'Sort by Publish ', 'a.enabled') }}
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown" aria-expanded="true">
+                        <i class="zmdi zmdi-more-vert"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="">Refresh</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        {% for item in articles %}
+        <div class="col-sm-4">
+			<div class="card">
+					<ul class="actions a-alt">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a href="{{path("app_videos_delete",{"id":item.id})}}">Delete</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path("app_videos_edit",{"id":item.id})}}">Edit</a>
+                                    </li>
+                                    {% if item.enabled == true %}
+                                         <li>
+                                            <a href="{{path("app_videos_notif",{"id":item.id})}}">Send notification</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                <div class="card-header ch-img  class-24" style="background-image: url({{asset(item.media.link|imagine_filter("product_img"))}}); height: 170px;">
+                <div class="class-30"></div>
+                <small style=" margin: 10px; background: rgba(0, 0, 0, 0.59);padding: 5px;top: -1px;position: absolute;">{{item.created|ago}}</small>
+
+                <div class="card-header class-23">
+                    <h5>
+                        {{item.title}}
+                    </h5>
+
+                </div>
+                </div>
+                <div class="card-body card-padding class-25" >
+                    <p style="font-size: 12px;text-align: justify;    margin-bottom: 0px;">{{item.content|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES')|truncate(120, true)}}</p>
+                     <ul class="lgi-attrs" style="position: absolute;bottom: 5px;">
+                        <li class="primary">
+                        Published: 
+                            {% if item.enabled == true %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </li>
+                     </ul>
+                    <a href="{{path("app_videos_view",{'id':item.id})}}" class="view-more pull-right class-26"><i class="zmdi zmdi-long-arrow-right"></i> View Article...</a>
+                </div>
+            </div>
+	    </div>
+        {% else %}
+        <div class="col-sm-12">
+            <div class="card">
+            <p style="text-align:center">
+                 <img style="padding:50px;" src="{{asset("img/bg_empty.png")}}" alt="">
+            </p>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-sm-12 ">
+                     <div class="pull-right" style="padding-right:30px;">
+                {{ knp_pagination_render(articles) }}
+            </div>   
+        </div>
+
+    </div>
+</div>
+{% endblock%}

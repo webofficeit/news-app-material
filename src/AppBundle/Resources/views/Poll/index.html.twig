@@ -1,0 +1,54 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block body %}
+
+<div class="container">
+        <div class="row">
+                <a href="{{path("app_poll_add")}}" title="">
+                    <div class="bg col-sm-4" style="padding:10px;">
+                    <div class="card palette-Light-Blue bg">
+
+                            <div>
+                                <div class="cw-current media">
+                                    <div class="cwc-info media-body">
+                                            <div class="cwci-temp">New Poll</div>
+                                            <br>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% for item in pollquestionary %}
+            <div class="bg col-sm-4" style="padding:10px;">
+                <div class="card "  style="background-color:#00b3a2">
+                    <ul class="actions a-alt">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a href="{{path("app_poll_delete",{"id":item.id})}}">Delete</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path("app_poll_edit",{"id":item.id})}}">Edit</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                        <div>
+                            <div class="cw-current media">
+                                <div class="cwc-info media-body">
+                                        <div class="cwci-temp">{{item.question}}</div>
+                                        <br>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock%}
