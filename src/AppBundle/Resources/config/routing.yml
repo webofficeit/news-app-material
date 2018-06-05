@@ -182,3 +182,21 @@ api_poll_list:
 app_poll_delete:
     path:     /poll/delete/{id}.html
     defaults: { _controller: AppBundle:Poll:delete }     
+    
+app_subcription_add:
+    path:     /subscription/add.html
+    defaults: { _controller: AppBundle:Subscription:add }
+app_subcription_edit:
+  path:     /subscription/edit/{id}.html
+  defaults: { _controller: AppBundle:Subscription:edit }
+  requirements:
+    id:  \d+
+app_subcription_index:
+    path:     /subscription/index.html
+    defaults: { _controller: AppBundle:Subscription:index }
+api_subcription_list:
+  path: /api/subscription/list/{token}/
+  defaults: { _controller: AppBundle:Subscription:api_subscription}
+app_subcription_delete:
+    path:     /subscription/delete/{id}.html
+    defaults: { _controller: AppBundle:Subscription:delete } 

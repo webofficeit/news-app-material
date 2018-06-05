@@ -5,6 +5,7 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Device;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\PollQuestionary;
+use AppBundle\Entity\Subcription;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,6 +34,9 @@ class HomeController extends Controller
 
         $pollquestionary= $em->getRepository("AppBundle:PollQuestionary")->findAll();
         $pollquestionary_count= sizeof($pollquestionary);
+        
+        $subcription= $em->getRepository("AppBundle:Subcription")->findAll();
+        $subcription_count= sizeof($subcription);
 
         $articles= $em->getRepository("AppBundle:Article")->findAll();
         $articles_count=0;
@@ -53,6 +57,7 @@ class HomeController extends Controller
             "videos_count"=>$videos_count,
             "messages_count"=>$messages_count,
             "pollquestionary_count"=>$pollquestionary_count,
+            "subscription_count"=>$subcription_count,
         ));
     }
     public function api_deviceAction($tkn,$token){

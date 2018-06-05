@@ -636,6 +636,43 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_poll_delete')), array (  '_controller' => 'AppBundle\\Controller\\PollController::deleteAction',));
         }
 
+        if (0 === strpos($pathinfo, '/subscription')) {
+            // app_subcription_add
+            if ('/subscription/add.html' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\SubscriptionController::addAction',  '_route' => 'app_subcription_add',);
+            }
+
+            // app_subcription_edit
+            if (0 === strpos($pathinfo, '/subscription/edit') && preg_match('#^/subscription/edit/(?P<id>\\d+)\\.html$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_subcription_edit')), array (  '_controller' => 'AppBundle\\Controller\\SubscriptionController::editAction',));
+            }
+
+            // app_subcription_index
+            if ('/subscription/index.html' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\SubscriptionController::indexAction',  '_route' => 'app_subcription_index',);
+            }
+
+        }
+
+        // api_subcription_list
+        if (0 === strpos($pathinfo, '/api/subscription/list') && preg_match('#^/api/subscription/list/(?P<token>[^/]++)/?$#sD', $pathinfo, $matches)) {
+            if ('/' === substr($pathinfo, -1)) {
+                // no-op
+            } elseif (!in_array($this->context->getMethod(), array('HEAD', 'GET'))) {
+                goto not_api_subcription_list;
+            } else {
+                return $this->redirect($rawPathinfo.'/', 'api_subcription_list');
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'api_subcription_list')), array (  '_controller' => 'AppBundle\\Controller\\SubscriptionController::api_subscriptionAction',));
+        }
+        not_api_subcription_list:
+
+        // app_subcription_delete
+        if (0 === strpos($pathinfo, '/subscription/delete') && preg_match('#^/subscription/delete/(?P<id>[^/\\.]++)\\.html$#sD', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_subcription_delete')), array (  '_controller' => 'AppBundle\\Controller\\SubscriptionController::deleteAction',));
+        }
+
         if (0 === strpos($pathinfo, '/medias')) {
             // media_index
             if ('/medias' === rtrim($pathinfo, '/')) {

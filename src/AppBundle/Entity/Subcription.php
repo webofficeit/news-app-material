@@ -103,7 +103,7 @@ class Subcription
      */
     public function setPeriod($period)
     {
-        $this->period = $position;
+        $this->period = $period;
 
         return $this;
     }

@@ -142,6 +142,20 @@ class __TwigTemplate_980045a3459f9cd8a0e292d1ae687e39cad6345b56b9837d9255de23952
                 </div>
             </div>
         </div>
+        <div class=\"col-sm-4\"  style=\"padding:10px\">
+            <div class=\"card c-dark palette-Light-Blue bg \">
+                <div class=\"card-body card-padding\">
+                    <h2 class=\"m-t-0 m-b-15 c-white\">
+                        <i class=\"zmdi zmdi-format-list-bulleted zmdi-48\"></i><font><font>
+                        ";
+        // line 88
+        echo twig_escape_filter($this->env, (isset($context["subscription_count"]) || array_key_exists("subscription_count", $context) ? $context["subscription_count"] : (function () { throw new Twig_Error_Runtime('Variable "subscription_count" does not exist.', 88, $this->source); })()), "html", null, true);
+        echo "
+                    </h2>
+                    <h2 class=\"m-t-0 m-b-15 c-white\">Subscription</h2>
+                </div>
+            </div>
+        </div>            
     </div>
 </div>
 ";
@@ -162,7 +176,7 @@ class __TwigTemplate_980045a3459f9cd8a0e292d1ae687e39cad6345b56b9837d9255de23952
 
     public function getDebugInfo()
     {
-        return array (  138 => 77,  124 => 66,  110 => 55,  96 => 44,  82 => 33,  68 => 22,  54 => 11,  44 => 3,  38 => 2,  15 => 1,);
+        return array (  152 => 88,  138 => 77,  124 => 66,  110 => 55,  96 => 44,  82 => 33,  68 => 22,  54 => 11,  44 => 3,  38 => 2,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -249,6 +263,17 @@ class __TwigTemplate_980045a3459f9cd8a0e292d1ae687e39cad6345b56b9837d9255de23952
                 </div>
             </div>
         </div>
+        <div class=\"col-sm-4\"  style=\"padding:10px\">
+            <div class=\"card c-dark palette-Light-Blue bg \">
+                <div class=\"card-body card-padding\">
+                    <h2 class=\"m-t-0 m-b-15 c-white\">
+                        <i class=\"zmdi zmdi-format-list-bulleted zmdi-48\"></i><font><font>
+                        {{subscription_count}}
+                    </h2>
+                    <h2 class=\"m-t-0 m-b-15 c-white\">Subscription</h2>
+                </div>
+            </div>
+        </div>            
     </div>
 </div>
 {% endblock%}

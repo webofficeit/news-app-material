@@ -94,16 +94,29 @@ class __TwigTemplate_4e20d627e388eb5acea0d83ace2044d53a7c7d462ac59103456be673ea8
         echo "\">New Poll</a></li>
     </ul>
   </li>
+   <li class=\"sub-menu\">
+    <a href=\"#\"  data-ma-action=\"submenu-toggle\"><i class=\"zmdi zmdi-collection-text\"></i>Subscription</a>
+    <ul>
+      <li><a href=\"";
+        // line 42
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_subcription_index");
+        echo "\">Subscription List</a></li>
+      <li><a href=\"";
+        // line 43
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_subcription_add");
+        echo "\">New Subscription</a></li>
+    </ul>
+  </li>
     <li><a href=\"";
-        // line 39
+        // line 46
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_comments_index");
         echo "\"  ><i class=\"zmdi zmdi-comments\"></i>Comments</a></li>
     <li><a href=\"";
-        // line 40
+        // line 47
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_user_index");
         echo "\"  ><i class=\"zmdi zmdi-account\"></i>Users</a></li>
     <li><a href=\"";
-        // line 41
+        // line 48
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_support_index");
         echo "\"  ><i class=\"zmdi zmdi-help\"></i>Support messages</a></li>
   </ul>
@@ -125,7 +138,7 @@ class __TwigTemplate_4e20d627e388eb5acea0d83ace2044d53a7c7d462ac59103456be673ea8
 
     public function getDebugInfo()
     {
-        return array (  107 => 41,  103 => 40,  99 => 39,  93 => 36,  89 => 35,  80 => 29,  76 => 28,  67 => 22,  63 => 21,  54 => 15,  50 => 14,  43 => 10,  36 => 6,  30 => 3,  26 => 1,);
+        return array (  120 => 48,  116 => 47,  112 => 46,  106 => 43,  102 => 42,  93 => 36,  89 => 35,  80 => 29,  76 => 28,  67 => 22,  63 => 21,  54 => 15,  50 => 14,  43 => 10,  36 => 6,  30 => 3,  26 => 1,);
     }
 
     public function getSourceContext()
@@ -166,6 +179,13 @@ class __TwigTemplate_4e20d627e388eb5acea0d83ace2044d53a7c7d462ac59103456be673ea8
     <ul>
       <li><a href=\"{{path(\"app_poll_index\")}}\">Poll List</a></li>
       <li><a href=\"{{path(\"app_poll_add\")}}\">New Poll</a></li>
+    </ul>
+  </li>
+   <li class=\"sub-menu\">
+    <a href=\"#\"  data-ma-action=\"submenu-toggle\"><i class=\"zmdi zmdi-collection-text\"></i>Subscription</a>
+    <ul>
+      <li><a href=\"{{path(\"app_subcription_index\")}}\">Subscription List</a></li>
+      <li><a href=\"{{path(\"app_subcription_add\")}}\">New Subscription</a></li>
     </ul>
   </li>
     <li><a href=\"{{path(\"app_comments_index\")}}\"  ><i class=\"zmdi zmdi-comments\"></i>Comments</a></li>

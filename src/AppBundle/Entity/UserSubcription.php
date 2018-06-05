@@ -34,7 +34,7 @@ class UserSubcription
 
     /**
      * @Assert\NotNull()
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="usersubcriptions")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="usersubcriptions")
      * @ORM\JoinColumn(name="userId", referencedColumnName="id", nullable=false)
      */
     private $user;
@@ -42,7 +42,7 @@ class UserSubcription
      /**
      * @var bool
      *
-     * @ORM\Column(name="enabled", type="boolean")
+     * @ORM\Column(name="activate", type="boolean")
      */
     private $enabled;
 
