@@ -655,18 +655,9 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
 
         // api_subcription_list
-        if (0 === strpos($pathinfo, '/api/subscription/list') && preg_match('#^/api/subscription/list/(?P<token>[^/]++)/?$#sD', $pathinfo, $matches)) {
-            if ('/' === substr($pathinfo, -1)) {
-                // no-op
-            } elseif (!in_array($this->context->getMethod(), array('HEAD', 'GET'))) {
-                goto not_api_subcription_list;
-            } else {
-                return $this->redirect($rawPathinfo.'/', 'api_subcription_list');
-            }
-
+        if (0 === strpos($pathinfo, '/api/subscription/list') && preg_match('#^/api/subscription/list/(?P<token>[^/]++)/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'api_subcription_list')), array (  '_controller' => 'AppBundle\\Controller\\SubscriptionController::api_subscriptionAction',));
         }
-        not_api_subcription_list:
 
         // app_subcription_delete
         if (0 === strpos($pathinfo, '/subscription/delete') && preg_match('#^/subscription/delete/(?P<id>[^/\\.]++)\\.html$#sD', $pathinfo, $matches)) {

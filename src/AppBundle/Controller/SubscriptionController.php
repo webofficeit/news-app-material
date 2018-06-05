@@ -27,36 +27,35 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
  */
 class SubscriptionController extends Controller {
     
-    public function api_pollAction(Request $request,$token,$id){
+    public function api_subscriptionAction(Request $request,$token,$id){
 
-        // if ($token!=$this->container->getParameter('token_app')) {
-        //     throw new NotFoundHttpException("Page not found");
-        // }
+         if ($token!=$this->container->getParameter('token_app')) {
+             throw new NotFoundHttpException("Page not found");
+         }
         $em=$this->getDoctrine()->getManager();
-        $subcription=$em->getRepository('AppBundle:Subcription')->findAll();
-
+        $checkactivesubcription=$em->getRepository('AppBundle:Subcription')->findSubscribtionUser($id);
+        
         $list=array();
         $home["id"]=0;
         $home["title"]="Home";
         $home["description"]="Home";
+        $subcription_list[]=$home;
+        if(count($checkactivesubcription)==0) { 
+        $subcription=$em->getRepository('AppBundle:Subcription')->findAll();
+        foreach ($subcription as $subcriptionlist) {
 
-        $poll_list[]=$home;
-        foreach ($pollquestionary as $polllist) {
-
-            $item["id"]=$polllist->getId();
-            $item["question"]=$polllist->getQuestion();
-            $item["options"] =[];
-            foreach($polllist->getPollOptions() as $optionkey => $polloption) {
-              $item["options"][$optionkey] = $polloption->getAnswer();
-            }
-            $poll_list[]=$item;
+            $item["id"]=$subcriptionlist->getId();
+            $item["title"]=$subcriptionlist->getTitle();
+           
+            $subcription_list["subcription"][]=$item;
+        }
         }
 
         header('Content-Type: application/json');
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
         $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent=$serializer->serialize($poll_list, 'json');
+        $jsonContent=$serializer->serialize($subcription_list, 'json');
         return new Response($jsonContent);
     }
 
@@ -102,14 +101,16 @@ class SubscriptionController extends Controller {
         if($subcription==null){
             throw new NotFoundHttpException("Page not found");
         }
-        if($subcription->getUserSubcription()==null) {
-          echo "hhhhhh"; exit();  
+        
+        if(count($subcription->getUserSubcription())>0) {
+          return $this->render('AppBundle:Subcription:restrict.html.twig');
         }
-        echo "<pre>"; var_dump($subcription->getUserSubcription()); exit();
+        
         $form=$this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->add('Yes', 'submit')
             ->getForm();
+        
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $em->remove($subcription);

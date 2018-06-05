@@ -195,7 +195,7 @@ app_subcription_index:
     path:     /subscription/index.html
     defaults: { _controller: AppBundle:Subscription:index }
 api_subcription_list:
-  path: /api/subscription/list/{token}/
+  path: /api/subscription/list/{token}/{id}
   defaults: { _controller: AppBundle:Subscription:api_subscription}
 app_subcription_delete:
     path:     /subscription/delete/{id}.html

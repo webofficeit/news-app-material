@@ -15,5 +15,19 @@ use Doctrine\ORM\EntityRepository;
  * @author shyam
  */
 class SubcriptionMasterRepository extends EntityRepository {
-    //put your code here
+    
+    public function findSubscribtionUser($userId)
+    {
+        return $this->createQueryBuilder('subcription')
+        // p.category refers to the "category" property on product
+        ->innerJoin('subcription.subcriptionids', 'usersubcription')
+        // selects all the category data to avoid the query
+        ->addSelect('subcription.id,subcription.title')
+        ->andWhere('usersubcription.user = :id')
+        ->andWhere('usersubcription.enabled = :enable')
+        ->setParameter('id', $userId)
+        ->setParameter('enable', 1)        
+        ->getQuery()
+        ->getResult();
+    }
 }

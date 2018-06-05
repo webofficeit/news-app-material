@@ -1,0 +1,21 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="card  col-sm-9">
+        <div class="card-header">
+            <h1>Already a user have been liked to this account. So it can't be deleted</h1>
+        </div>
+        <div class="card-body card-padding">
+		
+        <div class="form-group">
+            <div class="col-md-3 col-md-offset-9">
+              <a href="{{path("app_subcription_index")}}" class="btn btn-raised btn-lg  btn-warning">ok</a>
+              
+            </div>
+        </div>
+        <br>
+        <br>
+		
+	</div>
+</div>
+{% endblock %}
