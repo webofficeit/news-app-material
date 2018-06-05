@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 30, 2018 at 02:39 PM
+-- Generation Time: Jun 05, 2018 at 12:32 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.0.23
 
@@ -158,7 +158,7 @@ CREATE TABLE `fos_user_news` (
 --
 
 INSERT INTO `fos_user_news` (`id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `name`, `type`) VALUES
-(1, 'ADMIN', 'admin', 'ADMIN', 'admin', 1, 'djtfgbufxr4gwk4k0gss4sgs4k48wc4', '$2y$13$djtfgbufxr4gwk4k0gss4e/GWxLE60yfqNel24unSLeYzhjG19VqS', '2018-05-30 07:09:18', 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', 0, NULL, 'samir toni', 'email'),
+(1, 'ADMIN', 'admin', 'ADMIN', 'admin', 1, 'djtfgbufxr4gwk4k0gss4sgs4k48wc4', '$2y$13$djtfgbufxr4gwk4k0gss4e/GWxLE60yfqNel24unSLeYzhjG19VqS', '2018-06-01 15:07:52', 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', 0, NULL, 'samir toni', 'email'),
 (2, '114032365975275477653', '114032365975275477653', '114032365975275477653', '114032365975275477653', 1, 'pttxvg2z4v4k4k44s400gggoc08scog', '$2y$13$pttxvg2z4v4k4k44s400geHb/DeF2yDb/iRnxddF9ms/l3QP8OdXa', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Hassan Boutannoura', 'google'),
 (3, '1470139833005133', '1470139833005133', '1470139833005133', '1470139833005133', 1, 'f9mps5l4mog8cc80s8o8ow0ggwccscg', '$2y$13$f9mps5l4mog8cc80s8o8ourJIR4JPPIupluXC6AiM5Wy4IgIX/rE2', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'HaSsan BouTannoura', 'facebook'),
 (4, '115810725989979150958', '115810725989979150958', '115810725989979150958', '115810725989979150958', 1, 'h1v5204xn5s0wsgsgs44okk4okkggws', '$2y$13$h1v5204xn5s0wsgsgs44oedb/2Na67CJmZGmaaYLSyuCDM8Shay52', NULL, 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Hassan Boutannoura', 'google'),
@@ -226,6 +226,49 @@ INSERT INTO `media_news` (`id`, `titre`, `url`, `type`, `date`, `enabled`) VALUE
 (92, 'logo-1.png', '878ef1e5003709d4d40eaa7d1401289f.png', 'image', '2018-05-25 05:40:18', 1),
 (93, 'logo-1.png', '8f03e07a8928f695f03902cc3b6129fd.png', 'image', '2018-05-25 05:42:24', 1),
 (94, 'logo-1.png', 'e9547d18b5a5752f62336995345f57ee.png', 'image', '2018-05-25 05:42:24', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll_option_news`
+--
+
+CREATE TABLE `poll_option_news` (
+  `id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `answer` text NOT NULL,
+  `updated_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `poll_option_news`
+--
+
+INSERT INTO `poll_option_news` (`id`, `question_id`, `answer`, `updated_time`) VALUES
+(5, 2, 'Lol', '2018-06-01 15:08:17'),
+(6, 2, 'Bol', '2018-06-01 15:08:17'),
+(7, 2, 'Kol', '2018-06-01 15:08:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll_questioner_news`
+--
+
+CREATE TABLE `poll_questioner_news` (
+  `id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `updated_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `enabled` tinyint(1) DEFAULT NULL,
+  `position` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `poll_questioner_news`
+--
+
+INSERT INTO `poll_questioner_news` (`id`, `question`, `updated_time`, `enabled`, `position`) VALUES
+(2, 'What is your name', '2018-06-01 15:08:17', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -310,6 +353,19 @@ ALTER TABLE `media_news`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `poll_option_news`
+--
+ALTER TABLE `poll_option_news`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `poll_questioner_news`
+--
+ALTER TABLE `poll_questioner_news`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `support_contact_news`
 --
 ALTER TABLE `support_contact_news`
@@ -362,6 +418,18 @@ ALTER TABLE `media_news`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
+-- AUTO_INCREMENT for table `poll_option_news`
+--
+ALTER TABLE `poll_option_news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `poll_questioner_news`
+--
+ALTER TABLE `poll_questioner_news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `support_contact_news`
 --
 ALTER TABLE `support_contact_news`
@@ -391,6 +459,12 @@ ALTER TABLE `comment_news`
 ALTER TABLE `medias_gallerys_news`
   ADD CONSTRAINT `FK_838428714E7AF8F` FOREIGN KEY (`gallery_id`) REFERENCES `gallery_news` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_83842871EA9FDD75` FOREIGN KEY (`media_id`) REFERENCES `media_news` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `poll_option_news`
+--
+ALTER TABLE `poll_option_news`
+  ADD CONSTRAINT `poll_option_news_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `poll_questioner_news` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
